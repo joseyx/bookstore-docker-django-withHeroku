@@ -51,6 +51,7 @@ class SignUpPageTests(TestCase):
 
     def test_signup_form(self):
         """Test for the signup form."""
+        # pylint: disable=unused-variable
         new_user = get_user_model().objects.create_user(self.username, self.email)
         self.assertEqual(get_user_model().objects.all().count(), 1)
         self.assertEqual(get_user_model().objects.all()[0].username, self.username)
