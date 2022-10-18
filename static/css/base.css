@@ -1,5 +1,5 @@
 body {
-    min-height: 75rem;
+    height: 100%;
     padding-top: 4.5rem;
 }
 
@@ -10,4 +10,13 @@ h1 {
 img.bookcover {
     height: 300px;
     width: auto;
+}
+
+.borde {
+    outline: none;
+}
+
+.formulario {
+    width: 40%;
+    margin: auto;
 }
