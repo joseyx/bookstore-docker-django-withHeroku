@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block title %}
 {{ book.title}}
@@ -8,13 +8,31 @@
 
 {% block content %}
 <div class="book-detail">
+
+    {% if book.cover %}
+    <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="bookcover">
+    {% endif %}
     <h2><a href="">{{ book.title }}</a></h2>
     <p>Author: {{ book.author }}</p>
     <p>Price: {{ book.price }}</p>
     <div>
+        <hr>
+
+        {% if user.is_authenticated %}
+
+        <h3>Post a review</h3>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success ml-2">Publicar</button>
+        </form>
+        <hr>
+        {% else %}
+        <p>Must be logged in to post a review.</p>
+        {% endif %}
+
         <h3>Reviews</h3>
         <ul>
-
             {% for review in book.reviews.all %}
             <li>{{ review.review }} ({{ review.author }})</li>
             {% endfor %}

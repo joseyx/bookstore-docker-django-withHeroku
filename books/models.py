@@ -1,6 +1,6 @@
 """books models"""
 import uuid
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -12,6 +12,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    cover = models.ImageField(upload_to="covers/", blank=True)
 
     def __str__(self):  # pylint: disable=invalid-str-returned
         return self.title
@@ -31,7 +32,7 @@ class Review(models.Model):
     )
     review = models.CharField(max_length=255)
     author = models.ForeignKey(
-        get_user_model(),
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
 

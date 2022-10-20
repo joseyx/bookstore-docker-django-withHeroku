@@ -182,3 +182,7 @@ EMAIL_HOST_USER = "apikey"
 EMAIL_HOST_PASSWORD = env("SENDGRID_API_KEY")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# media settings
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
