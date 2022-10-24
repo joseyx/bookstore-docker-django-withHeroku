@@ -48,6 +48,16 @@ class Review(models.Model):
     def __str__(self):  # pylint: disable=invalid-str-returned
         return self.review
 
+    class Meta:
+        """class Meta object"""
+
+        indexes = [
+            models.Index(fields=["id"], name="id_index"),
+        ]
+        permissions = [
+            ("special_status", "Can read all books"),
+        ]
+
 
 class Images(models.Model):
     """images collection model"""

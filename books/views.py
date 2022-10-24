@@ -24,6 +24,10 @@ class ReviewGet(DetailView):
 
     model = Book
     template_name = "books/book_detail.html"
+    # pylint: disable=no-member
+    queryset = Book.objects.all().prefetch_related(
+        "reviews__author",
+    )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
