@@ -1,10 +1,19 @@
 """books models"""
 import uuid
+import os
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
 # Create your models here.
+
+
+def get_image_path(instance, filename):
+    """get_image_path"""
+    # pylint: disable=consider-using-f-string
+    return os.path.join("images", "book_%s" % str(instance.title), filename)
+
+
 class Book(models.Model):
     """books model"""
 
@@ -12,7 +21,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    cover = models.ImageField(upload_to="covers/", blank=True)
+    cover = models.ImageField(upload_to="covers/", blank=True, null=True)
 
     def __str__(self):  # pylint: disable=invalid-str-returned
         return self.title
@@ -38,3 +47,14 @@ class Review(models.Model):
 
     def __str__(self):  # pylint: disable=invalid-str-returned
         return self.review
+
+
+class Images(models.Model):
+    """images collection model"""
+
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        related_name="images",
+    )
+    image = models.ImageField(upload_to=get_image_path, blank=True)

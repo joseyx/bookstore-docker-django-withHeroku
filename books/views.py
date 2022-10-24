@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 from django.views import View
+from django.db.models import Q
 
 # pylint: disable=no-name-in-module
 from .models import Book
@@ -80,3 +81,18 @@ class BookDetailView(View):
 #         context = super().get_context_data(**kwargs)
 #         context["form"] = ReviewForm()
 #         return context
+
+
+class SearchResultListView(ListView):
+    """SearchResultListView"""
+
+    model = Book
+    context_object_name = "book_list"
+    template_name = "books/search_result.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        # pylint: disable=no-member
+        return Book.objects.filter(
+            Q(title__icontains=query) | Q(title__icontains=query)
+        )
