@@ -11,8 +11,14 @@ services:
     depends_on:
       - db
     environment:
-      - "DJANGO_SECRET_KEY=django-insecure-y7y+g94y-u)$$atnm1b7*5izwab1zp-o%vkluf!am7z*2tuqy9d"
+      - "DJANGO_SECRET_KEY=ya_$$gw54ymas0wvw*1i1om5x=7rv-_=r%8%11h#9zxq5yfod!%"
       - "DJANGO_DEBUG=True"
+      - "DJANGO_SECURE_SSL_REDIRECT=False"
+      - "DJANGO_SECURE_HSTS_SECONDS=0"
+      - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
+      - "DJANGO_SECURE_HSTS_PRELOAD=False"
+      - "DJANGO_SESSION_COOKIE_SECURE=False"
+      - "DJANGO_CSRF_COOKIE_SECURE=False"
 
   db:
     image: postgres:14

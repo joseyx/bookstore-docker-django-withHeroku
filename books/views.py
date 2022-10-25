@@ -98,5 +98,5 @@ class SearchResultListView(ListView):
         query = self.request.GET.get("q")
         # pylint: disable=no-member
         return Book.objects.filter(
-            Q(title__icontains=query) | Q(title__icontains=query)
+            Q(title__icontains=query) | Q(author__icontains=query)
         )
